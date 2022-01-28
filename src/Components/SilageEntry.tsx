@@ -1,11 +1,13 @@
 import React from 'react'
 import { IEntry } from '../App';
+import './SilageEntry.css';
 
 interface Props {
     entryItem: IEntry;
+    removeEntry(entryToBeDelete: string): void;
 }
 
-const SilageEntry = ({ entryItem }: Props) => {
+const SilageEntry = ({ entryItem, removeEntry }: Props) => {
     return (
         <div className='entry-item'>
             <div className='entry-content'>
@@ -13,7 +15,7 @@ const SilageEntry = ({ entryItem }: Props) => {
                 <div>{entryItem.hybridName}</div>
                 <div>{entryItem.relativeMaturity}</div>
             </div>
-            <button>X</button>
+            <button onClick={() => removeEntry(entryItem.hybridName)}>Remove</button>
         </div>
     )
 }

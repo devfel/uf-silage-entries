@@ -2,7 +2,7 @@
     font-size: 60%;
   
     --color-background: #F0F0F7;
-    --color-primary-lighter: #2515ff;
+    --color-primary-lighter: #6962cf;
     --color-primary-light: #0c00b9;
     --color-primary: #fffce9;
     --color-primary-dark: #774DD6;
@@ -13,7 +13,7 @@
     --color-text-in-primary: #070707;
     --color-text-title: #32264D;
     --color-text-complement: #9C98A6;
-    --color-text-base: #6A6180;
+    --color-text-base: #4b455a;
     --color-line-in-white: #E6E6F0;
     --color-input-background: #F8F8FC;
     --color-button-text: #FFFFFF;
@@ -34,28 +34,120 @@ html, body, #root {
 body {
     background: var(--color-background);
 }
-  
-#root {
-    display: grid;
-    align-items: center;
-    justify-content: center;
-}
 
 body,
 input,
 button,
 textarea {
-  font: 500 1.6rem Poppins;
-  color: var(--color-text-base);
+  font: 400 1.2rem Poppins;
+  color: var(--color-box-base);
 }
 
 .container {
     width: 90vw;
-    max-width: 700px;
+    max-width: 640px;
+    background-color: var(--color-primary-lighter);
+    display: flex;
+    flex-direction: column;
+    margin: auto;
 }
 
+.title {
+    background-color: var(--color-secundary);
+    width: 100%;
+    padding: 1rem;
+    text-align: center
+}
+
+.entries-company {
+    width: 100%;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    padding-top: 1.2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.entries-form{
+    display: flex;
+    flex-direction: column;
+    padding: 1.2rem;
+}
+
+.entries-form * {
+    margin-top: 0.2rem;
+    margin-right: 0.3rem;
+}
+
+.types-radio {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.types-radio span {
+    width: 100%;
+    text-align: center;
+}
+
+input {
+    color: var(--color-text-base);
+}
+button {
+    color: var(--color-text-base);
+    cursor: pointer;
+    border-radius: 0.7rem;
+}
+
+.seasons-checkbox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.seasons-checkbox span {
+    width: 100%;
+    text-align: center;
+}
+
+.entries-form > button {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.maturity-box {
+    text-align: center;
+}
+
+.entries-counter {
+    color: black;
+    margin: 1rem 1rem 2rem 1rem;
+}
+
+.entries-list {
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.email-button {
+    margin: 1rem 1rem 2rem 1rem;
+}
+
+
+
+@media (min-width: 400px) {
+    :root {
+      font-size: 70%;
+    }
+}
 @media (min-width: 700px) {
     :root {
-      font-size: 62.5%;
+      font-size: 100%;
     }
 }
