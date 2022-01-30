@@ -13,6 +13,7 @@ const SilageEntry = ({ entryItem, removeEntry }: Props) => {
             <div className='entry-content'>
                 <div>{entryItem.companyName}</div>
                 <div>{entryItem.hybridName}</div>
+                <div>{entryItem.silageType}</div>
                 <div>{entryItem.relativeMaturity}</div>
             </div>
             <button onClick={() => removeEntry(entryItem.hybridName)}>Remove</button>

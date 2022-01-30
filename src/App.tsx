@@ -5,6 +5,7 @@ import SilageEntry from './Components/SilageEntry';
 export interface IEntry {
   companyName: string;
   hybridName: string;
+  silageType: string;
   relativeMaturity: number;
 }
 
@@ -12,6 +13,8 @@ export interface IEntry {
 const App: FC = () => {
   const [companyName, setCompanyName] = useState<string>("");
   const [hybridName, setHybridName] = useState<string>("");
+  const [silageType, setSilageType] = useState<string>("");
+  const [season, setSeason] = useState<string>("");
   const [relativeMaturity, setRelativeMaturity] = useState<number>(0);
 
   const [entriesList, setEntriesList] = useState<IEntry[]>([]);
@@ -23,7 +26,7 @@ const App: FC = () => {
   };
 
   const addEntry = (): void => {
-    const newEntry = { companyName: companyName, hybridName: hybridName, relativeMaturity: relativeMaturity }
+    const newEntry = { companyName: companyName, hybridName: hybridName, silageType: silageType, relativeMaturity: relativeMaturity }
     setEntriesList([...entriesList, newEntry])
     setHybridName("");
     setRelativeMaturity(0);
@@ -40,7 +43,7 @@ const App: FC = () => {
     <div className="container">
       <div className="title">
         <h1>Silage Trial Entries</h1>
-        <h3>UF - IFAS - Forage Team</h3>
+        <h3>UF | IFAS - Forage Team</h3>
       </div>
 
       <div className="entries-company">
@@ -69,19 +72,19 @@ const App: FC = () => {
         <div className="types-radio">
           <span>Type: </span>
           <div className="radio-option">
-            <input type="radio" id="corn" name="silage-type" value="Corn" />
+            <input type="radio" id="corn" name="silage-type" value="Corn" onChange={() => setSilageType("Corn")} />
             <label htmlFor="corn">Corn</label>
           </div>
           <div className="radio-option">
-            <input type="radio" id="sorghum-sudan" name="silage-type" value="Sorghum-Sudan" />
+            <input type="radio" id="sorghum-sudan" name="silage-type" value="Sorghum-Sudan" onChange={() => setSilageType("Sorghum-Sudan")} />
             <label htmlFor="sorghum-sudan">Sorghum-Sudan</label>
           </div>
           <div className="radio-option">
-            <input type="radio" id="sudan" name="silage-type" value="Sudan" />
+            <input type="radio" id="sudan" name="silage-type" value="Sudan" onChange={() => setSilageType("Sudan")} />
             <label htmlFor="sudan">Sudan</label>
           </div>
           <div className="radio-option">
-            <input type="radio" id="millet" name="silage-type" value="Millet" />
+            <input type="radio" id="millet" name="silage-type" value="Millet" onChange={() => setSilageType("Millet")} />
             <label htmlFor="millet">Millet</label>
           </div>
         </div>
