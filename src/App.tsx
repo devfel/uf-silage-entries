@@ -6,15 +6,16 @@ export interface IEntry {
   companyName: string;
   hybridName: string;
   silageType: string;
+  season: string;
   relativeMaturity: number;
 }
-
 
 const App: FC = () => {
   const [companyName, setCompanyName] = useState<string>("");
   const [hybridName, setHybridName] = useState<string>("");
   const [silageType, setSilageType] = useState<string>("");
-  const [season, setSeason] = useState<string>("");
+  const [summer, setSummer] = useState<boolean>(false);
+  const [spring, setSpring] = useState<boolean>(false);
   const [relativeMaturity, setRelativeMaturity] = useState<number>(0);
 
   const [entriesList, setEntriesList] = useState<IEntry[]>([]);
@@ -26,9 +27,23 @@ const App: FC = () => {
   };
 
   const addEntry = (): void => {
-    const newEntry = { companyName: companyName, hybridName: hybridName, silageType: silageType, relativeMaturity: relativeMaturity }
-    setEntriesList([...entriesList, newEntry])
+    if (summer === true && spring === true) {
+      const newEntry1 = { companyName: companyName, hybridName: hybridName, silageType: silageType, season: "Summer", relativeMaturity: relativeMaturity }
+      const newEntry2 = { companyName: companyName, hybridName: hybridName, silageType: silageType, season: "Spring", relativeMaturity: relativeMaturity }
+      setEntriesList([...entriesList, newEntry1, newEntry2])
+    }
+    else if (spring === true && summer === false) {
+      const newEntry = { companyName: companyName, hybridName: hybridName, silageType: silageType, season: "Spring", relativeMaturity: relativeMaturity }
+      setEntriesList([...entriesList, newEntry])
+    }
+    else if (spring === false && summer === true) {
+      const newEntry = { companyName: companyName, hybridName: hybridName, silageType: silageType, season: "Summer", relativeMaturity: relativeMaturity }
+      setEntriesList([...entriesList, newEntry])
+    }
     setHybridName("");
+    setSilageType("");
+    setSummer(false);
+    setSpring(false);
     setRelativeMaturity(0);
   };
 
@@ -70,33 +85,33 @@ const App: FC = () => {
         />
 
         <div className="types-radio">
-          <span>Type: </span>
+          <span>Forage Species: </span>
           <div className="radio-option">
-            <input type="radio" id="corn" name="silage-type" value="Corn" onChange={() => setSilageType("Corn")} />
+            <input type="radio" id="corn" name="silage-type" value="Corn" onChange={() => setSilageType("Corn")} checked={silageType === "Corn"} />
             <label htmlFor="corn">Corn</label>
           </div>
           <div className="radio-option">
-            <input type="radio" id="sorghum-sudan" name="silage-type" value="Sorghum-Sudan" onChange={() => setSilageType("Sorghum-Sudan")} />
+            <input type="radio" id="sorghum-sudan" name="silage-type" value="Sorghum-Sudan" onChange={() => setSilageType("Sorghum-Sudan")} checked={silageType === "Sorghum-Sudan"} />
             <label htmlFor="sorghum-sudan">Sorghum-Sudan</label>
           </div>
           <div className="radio-option">
-            <input type="radio" id="sudan" name="silage-type" value="Sudan" onChange={() => setSilageType("Sudan")} />
+            <input type="radio" id="sudan" name="silage-type" value="Sudan" onChange={() => setSilageType("Sudan")} checked={silageType === "Sudan"} />
             <label htmlFor="sudan">Sudan</label>
           </div>
           <div className="radio-option">
-            <input type="radio" id="millet" name="silage-type" value="Millet" onChange={() => setSilageType("Millet")} />
+            <input type="radio" id="millet" name="silage-type" value="Millet" onChange={() => setSilageType("Millet")} checked={silageType === "Millet"} />
             <label htmlFor="millet">Millet</label>
           </div>
         </div>
 
         <div className="seasons-checkbox">
-          <span>Seasons: </span>
+          <span>Seasons: (Select One or Both)</span>
           <div className="checkbox-option">
-            <input type="checkbox" id="summer" name="summer" value="Summer" />
+            <input type="checkbox" id="summer" name="summer" value="Summer" onChange={() => setSummer(!summer)} checked={summer} />
             <label htmlFor="summer"> Summer</label>
           </div>
           <div className="checkbox-option">
-            <input type="checkbox" id="spring" name="spring" value="Spring" />
+            <input type="checkbox" id="spring" name="spring" value="Spring" onChange={() => setSpring(!spring)} checked={spring} />
             <label htmlFor="spring"> Spring</label>
           </div>
         </div>
