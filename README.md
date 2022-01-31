@@ -19,8 +19,8 @@ Fixes Needed:
 [ ] Create the Database View.
 
 [X] Message Saying an Entry (or 2) have been added to the List Succefully
-[ ] Add Company Name in the LocalStorage. 
-[ ] Add the List of itens in the LocalStorage.
+[X] Add Company Name in the LocalStorage. 
+[X] Add the List of itens in the LocalStorage.
 
 [ ] Clear LocalStorageEntries ("uf-forage-trials-entries-list") when the user sends the list. 
 localStorage.setItem("uf-forage-trials-entries-list", []);

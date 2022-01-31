@@ -16,7 +16,10 @@ export interface IEntry {
 }
 
 const App: FC = () => {
-  const [companyName, setCompanyName] = useState<string>("");
+  const [companyName, setCompanyName] = useState<string>(() => {
+    const companyNameLocalData = localStorage.getItem("uf-forage-trials-company-name")
+    return companyNameLocalData ? companyNameLocalData : "";
+  });
   const [hybridName, setHybridName] = useState<string>("");
   const [silageType, setSilageType] = useState<string>("");
   const [summer, setSummer] = useState<boolean>(false);
@@ -52,6 +55,10 @@ const App: FC = () => {
   useEffect(() => {
     localStorage.setItem("uf-forage-trials-entries-list", JSON.stringify(entriesList));
   }, [entriesList]);
+
+  useEffect(() => {
+    localStorage.setItem("uf-forage-trials-company-name", companyName);
+  }, [companyName]);
 
   const addEntry = (): void => {
     if (companyName === "") {
