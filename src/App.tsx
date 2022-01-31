@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import './assets/styles/global.css';
 import './assets/styles/notifications.css';
@@ -25,9 +25,11 @@ const App: FC = () => {
   const [relativeMaturity, setRelativeMaturity] = useState<number>(0);
 
   const [showMulticut, setShowMulticut] = useState<boolean>(false);
-  const [entriesList, setEntriesList] = useState<IEntry[]>([]);
 
-
+  const [entriesList, setEntriesList] = useState<IEntry[]>(() => {
+    const entriesListLocalData = localStorage.getItem("uf-forage-trials-entries-list")
+    return entriesListLocalData ? JSON.parse(entriesListLocalData) : [];
+  });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.name === "company-name") setCompanyName(event.target.value);
@@ -46,6 +48,10 @@ const App: FC = () => {
       message: msgInput,
     })
   }
+
+  useEffect(() => {
+    localStorage.setItem("uf-forage-trials-entries-list", JSON.stringify(entriesList));
+  }, [entriesList]);
 
   const addEntry = (): void => {
     if (companyName === "") {
@@ -83,7 +89,6 @@ const App: FC = () => {
       const newEntry2 = { entryId: uuidv4(), companyName: companyName, hybridName: hybridName, silageType: silageType, multicut: multicut, season: "Spring", relativeMaturity: relativeMaturity };
       setEntriesList([...entriesList, newEntry1, newEntry2]);
       resetValues();
-
       //Success Message for Two Entries
       msgType = ("SUCCESS");
       msgInput = ("Success: Two Entries Added. 1 Summer & 1 Spring.");
@@ -97,7 +102,6 @@ const App: FC = () => {
       msgType = ("SUCCESS");
       msgInput = ("Success: Entry Added for Summer.");
       handleNewNotification();
-
     }
     else if (spring === true && summer === false) {
       const newEntry = { entryId: uuidv4(), companyName: companyName, hybridName: hybridName, silageType: silageType, multicut: multicut, season: "Spring", relativeMaturity: relativeMaturity };

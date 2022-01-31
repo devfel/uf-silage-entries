@@ -6,7 +6,7 @@
 
 Fixes Needed:
 [X] Fix the Remove All Itens With the Same Name (UUID).
-[ ] Dont Allow Adding Without Selecting Fields. 
+[X] Dont Allow Adding Without Selecting Fields. 
 [ ] Improve the css of the Item List.
 
 [X] Add Functionality for Type Selection on Radio Button.
@@ -16,11 +16,16 @@ Fixes Needed:
 
 [ ] Add the send e-mail functionallity.
 [ ] Add the Database.
-[ ] Add the View.
+[ ] Create the Database View.
 
-[ ] Message Saying an Entry (or 2) have been added to the List Succefully
+[X] Message Saying an Entry (or 2) have been added to the List Succefully
 [ ] Add Company Name in the LocalStorage. 
 [ ] Add the List of itens in the LocalStorage.
+
+[ ] Clear LocalStorageEntries ("uf-forage-trials-entries-list") when the user sends the list. 
+localStorage.setItem("uf-forage-trials-entries-list", []);
+
+[ ] Confirmation Page to send all the trials.
 
 Tutorials that Helped: 
 https://www.youtube.com/watch?v=bjnW2NLAofI
