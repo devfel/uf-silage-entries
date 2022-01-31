@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { IEntry } from '../App';
 import './SilageEntry.css';
 
@@ -18,7 +18,7 @@ const SilageEntry = ({ entryItem, removeEntry }: Props) => {
                 <div>Season: <b>{entryItem.season}</b></div>
                 <div>Relative Maturity: {entryItem.relativeMaturity}</div>
             </div>
-            <button onClick={() => removeEntry(entryItem.hybridName)}>Remove</button>
+            <button onClick={() => removeEntry(entryItem.entryId)}>Remove</button>
         </div>
     )
 }

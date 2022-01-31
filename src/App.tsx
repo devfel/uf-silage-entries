@@ -1,8 +1,12 @@
 import React, { ChangeEvent, FC, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import './assets/styles/global.css';
+import './assets/styles/notifications.css';
 import SilageEntry from './Components/SilageEntry';
+import { useNotification } from "./Components/Notifications/NotificationProvider";
 
 export interface IEntry {
+  entryId: string;
   companyName: string;
   hybridName: string;
   silageType: string;
@@ -23,26 +27,90 @@ const App: FC = () => {
   const [showMulticut, setShowMulticut] = useState<boolean>(false);
   const [entriesList, setEntriesList] = useState<IEntry[]>([]);
 
+
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.name === "company-name") setCompanyName(event.target.value);
     else if (event.target.name === "hybrid-name") setHybridName(event.target.value);
     else if (event.target.name === "relative-maturity") setRelativeMaturity(Number(event.target.value));
   };
 
+  // ---- Notification Variables and Calls -----
+  let msgType = ""; //ERROR or SUCCESS
+  let msgInput = "";
+  const dispatch = useNotification();
+
+  const handleNewNotification = () => {
+    dispatch({
+      type: msgType,
+      message: msgInput,
+    })
+  }
+
   const addEntry = (): void => {
-    if (summer === true && spring === true) {
-      const newEntry1 = { companyName: companyName, hybridName: hybridName, silageType: silageType, multicut: multicut, season: "Summer", relativeMaturity: relativeMaturity }
-      const newEntry2 = { companyName: companyName, hybridName: hybridName, silageType: silageType, multicut: multicut, season: "Spring", relativeMaturity: relativeMaturity }
-      setEntriesList([...entriesList, newEntry1, newEntry2])
+    if (companyName === "") {
+      //Error for Company Name Blank
+      msgType = ("ERROR");
+      msgInput = ("Error: Insert Company Name.");
+      handleNewNotification();
     }
-    else if (spring === true && summer === false) {
-      const newEntry = { companyName: companyName, hybridName: hybridName, silageType: silageType, multicut: multicut, season: "Spring", relativeMaturity: relativeMaturity }
-      setEntriesList([...entriesList, newEntry])
+    else if (hybridName === "") {
+      //Error for Hybrid Name Blank
+      msgType = ("ERROR");
+      msgInput = ("Error: Insert Hybrid Name/Number.");
+      handleNewNotification();
+    }
+    else if (silageType === "") {
+      //Error for Forage Species Not Selected.
+      msgType = ("ERROR");
+      msgInput = ("Error: Select one Forage Species.");
+      handleNewNotification();
+    }
+    else if ((silageType === "Sudan" || silageType === "Millet") && multicut === "N/A") {
+      //Error for multicut not selected while choosing Millet or Sudan Species.
+      msgType = ("ERROR");
+      msgInput = ("Error: Select if it will use Multicut or not.");
+      handleNewNotification();
+    }
+    else if (spring === false && summer === false) {
+      //Error for No Season Selected.
+      msgType = ("ERROR");
+      msgInput = ("Error: Select One or Both Seasons, Summer/Spring.");
+      handleNewNotification();
+    }
+    else if (summer === true && spring === true) {
+      const newEntry1 = { entryId: uuidv4(), companyName: companyName, hybridName: hybridName, silageType: silageType, multicut: multicut, season: "Summer", relativeMaturity: relativeMaturity };
+      const newEntry2 = { entryId: uuidv4(), companyName: companyName, hybridName: hybridName, silageType: silageType, multicut: multicut, season: "Spring", relativeMaturity: relativeMaturity };
+      setEntriesList([...entriesList, newEntry1, newEntry2]);
+      resetValues();
+
+      //Success Message for Two Entries
+      msgType = ("SUCCESS");
+      msgInput = ("Success: Two Entries Added. 1 Summer & 1 Spring.");
+      handleNewNotification();
     }
     else if (spring === false && summer === true) {
-      const newEntry = { companyName: companyName, hybridName: hybridName, silageType: silageType, multicut: multicut, season: "Summer", relativeMaturity: relativeMaturity }
-      setEntriesList([...entriesList, newEntry])
+      const newEntry = { entryId: uuidv4(), companyName: companyName, hybridName: hybridName, silageType: silageType, multicut: multicut, season: "Summer", relativeMaturity: relativeMaturity };
+      setEntriesList([...entriesList, newEntry]);
+      resetValues();
+      //Success Message for Summer Entry.
+      msgType = ("SUCCESS");
+      msgInput = ("Success: Entry Added for Summer.");
+      handleNewNotification();
+
     }
+    else if (spring === true && summer === false) {
+      const newEntry = { entryId: uuidv4(), companyName: companyName, hybridName: hybridName, silageType: silageType, multicut: multicut, season: "Spring", relativeMaturity: relativeMaturity };
+      setEntriesList([...entriesList, newEntry]);
+      resetValues();
+      //Success Message for Spring Entry.
+      msgType = ("SUCCESS");
+      msgInput = ("Success: Entry Added for Spring");
+      handleNewNotification();
+    }
+  };
+
+  const resetValues = (): void => {
     //Only Reset below variables when a newEntry is posted (otherwise user will have to fill everything again).
     setHybridName("");
     setSilageType("");
@@ -51,17 +119,21 @@ const App: FC = () => {
     setSummer(false);
     setSpring(false);
     setRelativeMaturity(0);
-  };
+  }
 
-  const removeEntry = (entryToBeDelete: string): void => {
-    setEntriesList(entriesList.filter((nameToFilter) => {
-      return nameToFilter.hybridName != entryToBeDelete
+  const removeEntry = (entryIdToBeDelete: string): void => {
+    setEntriesList(entriesList.filter((idToFilter) => {
+      return idToFilter.entryId != entryIdToBeDelete
     }));
+    //Success Message for Removing Entry.
+    msgType = ("SUCCESS");
+    msgInput = ("Success: Entry Removed from the list.");
+    handleNewNotification();
   };
 
   const MulticutOption = () => (
     <div className="types-radio" id="multicut">
-      <span>Multicut: </span>
+      <span><b>Multicut: </b>(Only Available for Sudan or Millet) </span>
       <div className="radio-option">
         <input type="radio" id="yes" name="multicut" value="Yes" onChange={() => setMulticut("Yes")} checked={multicut === "Yes"} />
         <label htmlFor="yes">Yes</label>
@@ -82,7 +154,7 @@ const App: FC = () => {
       </div>
 
       <div className="entries-company">
-        <label htmlFor="company-name">Company Name: </label>
+        <label htmlFor="company-name"><b>Company Name: </b></label>
         <input
           type="text"
           id="company-name"
@@ -94,7 +166,7 @@ const App: FC = () => {
       </div>
 
       <div className="entries-form">
-        <label htmlFor="hybrid-name">Hybrid Name/Number: </label>
+        <label htmlFor="hybrid-name"><b>Hybrid Name/Number: </b></label>
         <input
           type="text"
           id="hybrid-name"
@@ -105,7 +177,7 @@ const App: FC = () => {
         />
 
         <div className="types-radio">
-          <span>Forage Species: </span>
+          <span><b>Forage Species: </b></span>
           <div className="radio-option">
             <input type="radio" id="corn" name="silage-type" value="Corn" onChange={() => { setSilageType("Corn"); setMulticut("N/A"); setShowMulticut(false) }} checked={silageType === "Corn"} />
             <label htmlFor="corn">Corn</label>
@@ -127,7 +199,7 @@ const App: FC = () => {
         {showMulticut ? <MulticutOption /> : null}
 
         <div className="seasons-checkbox">
-          <span>Seasons: (Select One or Both)</span>
+          <span><b>Seasons: </b>(Select One or Both)</span>
           <div className="checkbox-option">
             <input type="checkbox" id="summer" name="summer" value="Summer" onChange={() => setSummer(!summer)} checked={summer} />
             <label htmlFor="summer"> Summer</label>
