@@ -14,6 +14,7 @@ const SilageEntry = ({ entryItem, removeEntry }: Props) => {
                 <div>Company: {entryItem.companyName}</div>
                 <div>Hybrid: {entryItem.hybridName}</div>
                 <div>Species: {entryItem.silageType}</div>
+                <div>Multicut: {entryItem.multicut}</div>
                 <div>Season: <b>{entryItem.season}</b></div>
                 <div>Relative Maturity: {entryItem.relativeMaturity}</div>
             </div>

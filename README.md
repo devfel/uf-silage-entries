@@ -10,7 +10,7 @@ Fixes Needed:
 [X] Add Functionality for Type Selection on Radio Button.
 [X] Add Functionality for Seasons Selection on Selection Boxs.
 
-[ ] Add the “multi cut” option if the type is “Sudan”  or “Millet”
+[X] Add the “multi cut” option if the type is “Sudan”  or “Millet”
 [ ] Add the Type, Seasons, and Multi-Cut options in the list below
 [ ] Dont Allow Adding Without Selecting Fields. 
 [ ] Improve the css of the Item List.

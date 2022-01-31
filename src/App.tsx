@@ -6,6 +6,7 @@ export interface IEntry {
   companyName: string;
   hybridName: string;
   silageType: string;
+  multicut: string;
   season: string;
   relativeMaturity: number;
 }
@@ -16,8 +17,10 @@ const App: FC = () => {
   const [silageType, setSilageType] = useState<string>("");
   const [summer, setSummer] = useState<boolean>(false);
   const [spring, setSpring] = useState<boolean>(false);
+  const [multicut, setMulticut] = useState<string>("N/A");
   const [relativeMaturity, setRelativeMaturity] = useState<number>(0);
 
+  const [showMulticut, setShowMulticut] = useState<boolean>(false);
   const [entriesList, setEntriesList] = useState<IEntry[]>([]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -28,20 +31,23 @@ const App: FC = () => {
 
   const addEntry = (): void => {
     if (summer === true && spring === true) {
-      const newEntry1 = { companyName: companyName, hybridName: hybridName, silageType: silageType, season: "Summer", relativeMaturity: relativeMaturity }
-      const newEntry2 = { companyName: companyName, hybridName: hybridName, silageType: silageType, season: "Spring", relativeMaturity: relativeMaturity }
+      const newEntry1 = { companyName: companyName, hybridName: hybridName, silageType: silageType, multicut: multicut, season: "Summer", relativeMaturity: relativeMaturity }
+      const newEntry2 = { companyName: companyName, hybridName: hybridName, silageType: silageType, multicut: multicut, season: "Spring", relativeMaturity: relativeMaturity }
       setEntriesList([...entriesList, newEntry1, newEntry2])
     }
     else if (spring === true && summer === false) {
-      const newEntry = { companyName: companyName, hybridName: hybridName, silageType: silageType, season: "Spring", relativeMaturity: relativeMaturity }
+      const newEntry = { companyName: companyName, hybridName: hybridName, silageType: silageType, multicut: multicut, season: "Spring", relativeMaturity: relativeMaturity }
       setEntriesList([...entriesList, newEntry])
     }
     else if (spring === false && summer === true) {
-      const newEntry = { companyName: companyName, hybridName: hybridName, silageType: silageType, season: "Summer", relativeMaturity: relativeMaturity }
+      const newEntry = { companyName: companyName, hybridName: hybridName, silageType: silageType, multicut: multicut, season: "Summer", relativeMaturity: relativeMaturity }
       setEntriesList([...entriesList, newEntry])
     }
+    //Only Reset below variables when a newEntry is posted (otherwise user will have to fill everything again).
     setHybridName("");
     setSilageType("");
+    setMulticut("N/A");
+    setShowMulticut(false)
     setSummer(false);
     setSpring(false);
     setRelativeMaturity(0);
@@ -52,6 +58,20 @@ const App: FC = () => {
       return nameToFilter.hybridName != entryToBeDelete
     }));
   };
+
+  const MulticutOption = () => (
+    <div className="types-radio" id="multicut">
+      <span>Multicut: </span>
+      <div className="radio-option">
+        <input type="radio" id="yes" name="multicut" value="Yes" onChange={() => setMulticut("Yes")} checked={multicut === "Yes"} />
+        <label htmlFor="yes">Yes</label>
+      </div>
+      <div className="radio-option">
+        <input type="radio" id="no" name="multicut" value="No" onChange={() => setMulticut("No")} checked={multicut === "No"} />
+        <label htmlFor="no">No</label>
+      </div>
+    </div>
+  )
 
 
   return (
@@ -87,22 +107,24 @@ const App: FC = () => {
         <div className="types-radio">
           <span>Forage Species: </span>
           <div className="radio-option">
-            <input type="radio" id="corn" name="silage-type" value="Corn" onChange={() => setSilageType("Corn")} checked={silageType === "Corn"} />
+            <input type="radio" id="corn" name="silage-type" value="Corn" onChange={() => { setSilageType("Corn"); setMulticut("N/A"); setShowMulticut(false) }} checked={silageType === "Corn"} />
             <label htmlFor="corn">Corn</label>
           </div>
           <div className="radio-option">
-            <input type="radio" id="sorghum-sudan" name="silage-type" value="Sorghum-Sudan" onChange={() => setSilageType("Sorghum-Sudan")} checked={silageType === "Sorghum-Sudan"} />
+            <input type="radio" id="sorghum-sudan" name="silage-type" value="Sorghum-Sudan" onChange={() => { setSilageType("Sorghum-Sudan"); setMulticut("N/A"); setShowMulticut(false) }} checked={silageType === "Sorghum-Sudan"} />
             <label htmlFor="sorghum-sudan">Sorghum-Sudan</label>
           </div>
           <div className="radio-option">
-            <input type="radio" id="sudan" name="silage-type" value="Sudan" onChange={() => setSilageType("Sudan")} checked={silageType === "Sudan"} />
+            <input type="radio" id="sudan" name="silage-type" value="Sudan" onChange={() => { setSilageType("Sudan"); setMulticut("N/A"); setShowMulticut(true) }} checked={silageType === "Sudan"} />
             <label htmlFor="sudan">Sudan</label>
           </div>
           <div className="radio-option">
-            <input type="radio" id="millet" name="silage-type" value="Millet" onChange={() => setSilageType("Millet")} checked={silageType === "Millet"} />
+            <input type="radio" id="millet" name="silage-type" value="Millet" onChange={() => { setSilageType("Millet"); setMulticut("N/A"); setShowMulticut(true) }} checked={silageType === "Millet"} />
             <label htmlFor="millet">Millet</label>
           </div>
         </div>
+
+        {showMulticut ? <MulticutOption /> : null}
 
         <div className="seasons-checkbox">
           <span>Seasons: (Select One or Both)</span>
@@ -127,7 +149,6 @@ const App: FC = () => {
             value={relativeMaturity}
           />
         </div>
-
 
         <button onClick={addEntry}>Add Entry to the List.</button>
       </div>
