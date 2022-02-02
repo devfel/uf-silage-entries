@@ -159,6 +159,7 @@ const App: FC = () => {
         <label htmlFor="company-name"><b>Company Name: </b></label>
         <input
           type="text"
+          autoComplete="off"
           id="company-name"
           name="company-name"
           placeholder="Company or Brand Name..."
@@ -171,6 +172,7 @@ const App: FC = () => {
         <label htmlFor="hybrid-name"><b>Hybrid Name/Number: </b></label>
         <input
           type="text"
+          autoComplete="off"
           id="hybrid-name"
           name="hybrid-name"
           placeholder="as to be presented on the reports."
@@ -240,7 +242,13 @@ const App: FC = () => {
 
       </div>
 
-      <button className="email-button" onClick={addEntry}>Click Here When you Finished Adding All Entries for Trials.</button>
+      <button
+        className={entriesList.length > 0 ? "email-button" : "email-button-disabled"}
+        disabled={entriesList.length > 0 ? false : true}
+        onClick={addEntry}>
+        Click Here When you Finished Adding All Entries for Trials.<br></br>
+        Send <b>{entriesList.length}</b> {entriesList.length === 1 ? "Entry" : "Entries"} for Trials.
+      </button>
     </div>
 
   );

@@ -138,6 +138,12 @@ button {
 .email-button {
     margin: 2rem 1rem 2rem 1rem;
 }
+.email-button-disabled {
+    margin: 2rem 1rem 2rem 1rem;
+    cursor: not-allowed;    
+    background-color: #bbbbbb; 
+
+}
 
 
 

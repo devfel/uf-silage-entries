@@ -18,6 +18,7 @@ Fixes Needed:
 [X] Add Company Name in the LocalStorage. 
 [X] Add the List of itens in the LocalStorage.
 
+[ ] Disable "Send Form" Button while no item in the list and Change Text.
 [ ] Confirmation Page to send all the trials.
 
 [ ] Add the send e-mail functionallity.
