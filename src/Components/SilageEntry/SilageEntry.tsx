@@ -1,5 +1,5 @@
 import React from 'react';
-import { IEntry } from '../App';
+import { IEntry } from './IEntry';
 import './SilageEntry.css';
 
 interface Props {

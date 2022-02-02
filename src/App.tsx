@@ -1,19 +1,10 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import './assets/styles/global.css';
-import './assets/styles/notifications.css';
-import SilageEntry from './Components/SilageEntry';
+import './Components/Notifications/Notifications.css';
+import SilageEntry from './Components/SilageEntry/SilageEntry'
 import { useNotification } from "./Components/Notifications/NotificationProvider";
-
-export interface IEntry {
-  entryId: string;
-  companyName: string;
-  hybridName: string;
-  silageType: string;
-  multicut: string;
-  season: string;
-  relativeMaturity: number;
-}
+import { IEntry } from './Components/SilageEntry/IEntry';
 
 const App: FC = () => {
   const [companyName, setCompanyName] = useState<string>(() => {
