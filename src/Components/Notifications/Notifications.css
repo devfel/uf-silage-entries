@@ -5,6 +5,17 @@
     width: 20rem;
 }
 
+@media (min-width: 1300px) {
+    .notification-wrapper {
+        right: 18%;
+    }
+}
+@media (min-width: 2000px) {
+    .notification-wrapper {
+        right: 30%;
+    }
+}
+
 .notification-item {
     box-shadow: 0 0 10px rgba(0,0,0, 0.3);
     border-radius: 10px;
@@ -19,7 +30,7 @@
 
 @keyframes SlideLeft {
     0% {
-        margin-left: 120%;
+        margin-left: 260%;
     }
 
     100% {
@@ -33,7 +44,7 @@
     }
 
     100% {
-        margin-left: 120%;
+        margin-left: 260%;
     }
 }
 

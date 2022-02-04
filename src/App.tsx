@@ -2,8 +2,8 @@ import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import './assets/styles/global.css';
 import './Components/Notifications/Notifications.css';
-import SilageEntry from './Components/SilageEntry/SilageEntry'
 import { useNotification } from "./Components/Notifications/NotificationProvider";
+import SilageEntry from './Components/SilageEntry/SilageEntry'
 import { IEntry } from './Components/SilageEntry/IEntry';
 
 const App: FC = () => {

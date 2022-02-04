@@ -18,7 +18,8 @@ Fixes Needed:
 [X] Add Company Name in the LocalStorage. 
 [X] Add the List of itens in the LocalStorage.
 
-[ ] Disable "Send Form" Button while no item in the list and Change Text.
+[X] Disable "Send Form" Button while no item in the list and Change Text.
+
 [ ] Confirmation Page to send all the trials.
 
 [ ] Add the send e-mail functionallity.
@@ -34,3 +35,8 @@ Tutorials that Helped:
 https://www.youtube.com/watch?v=bjnW2NLAofI - Todo List in ReactJS using TypeScript Tutorial
 https://www.youtube.com/watch?v=KYKmqeU6lOI - React Notification Component.
 https://www.youtube.com/watch?v=SOnMln3W0U8 - Adding Local Storage.
+https://www.youtube.com/watch?v=CCHQpkc10s4 - Deploy Node, Express, Knex server to Heroku - PG BD.
+https://www.youtube.com/watch?v=F8s4Ng-re0E - How to Deploy React App to GitHub Pages.
+https://www.youtube.com/watch?v=IHFvZTVT-2A - Display Loading while Data is not Fetched.
+https://flow.ai/docs/guides/code/kb-catch-api-errors-code-actions - How to catch API errors.
+https://www.youtube.com/watch?v=9DwGahSqcEc - Create a modal with React (Pop-up)
