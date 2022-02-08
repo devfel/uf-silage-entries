@@ -11,8 +11,8 @@ Fixes Needed:
 
 [X] Add Functionality for Type Selection on Radio Button.
 [X] Add Functionality for Seasons Selection on Selection Boxs.
-[X] Add the “multi cut” option if the type is “Sudan”  or “Millet”
-[X] Add the Type, Seasons, and Multi-Cut options in the list below
+[X] Add the “multi cut” option if the type is “Sudan”  or “Millet”.
+[X] Add the Type, Seasons, and Multi-Cut options in the list below.
 
 [X] Message Saying an Entry (or 2) have been added to the List Succefully
 [X] Add Company Name in the LocalStorage. 
